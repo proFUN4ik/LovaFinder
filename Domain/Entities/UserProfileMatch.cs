@@ -2,11 +2,16 @@
 
 public class UserProfileMatch
 {
-    public UserProfileMatch(long id, UserProfile userProfile, UserProfile foreignUserProfile)
+    public UserProfileMatch(long id, long userProfileId, long foreignUserProfileId)
     {
         Id = id;
-        UserProfile = userProfile;
-        ForeignUserProfile = foreignUserProfile;
+        UserProfileId = Math.Min(userProfileId, foreignUserProfileId);
+        ForeignUserProfileId = Math.Max(userProfileId, foreignUserProfileId);
+    }
+
+    private UserProfileMatch()
+    {
+        //ef core
     }
     
     public long Id { get; }

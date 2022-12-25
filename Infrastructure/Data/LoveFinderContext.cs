@@ -1,11 +1,11 @@
-﻿using Domain.Entities;
+﻿using Application.Data;
+using Domain.Entities;
 using Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 
-namespace Domain.Data;
+namespace Infrastructure.Data;
 
-public class LoveFinderContext : DbContext
+public class LoveFinderContext : DbContext, ILoveFinderContext
 {
     public LoveFinderContext(DbContextOptions<LoveFinderContext> ctx) : base(ctx)
     {
@@ -18,11 +18,13 @@ public class LoveFinderContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder m)
     {
+        m.Entity<UserProfile>().HasKey(p => p.Id);
+        m.Entity<UserProfile>().OwnsOne(p => p.Preferences);
+
+        m.Entity<UsersGroup>().HasKey(g => g.Id);
+
+        m.Entity<UserProfileMatch>().HasKey(m => m.Id);
+        
         m.ToSnakeCase();
-    }
-    
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.ConfigureWarnings(b => b.Ignore(CoreEventId.RowLimitingOperationWithoutOrderByWarning));
     }
 }

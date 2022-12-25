@@ -5,7 +5,7 @@ namespace Infrastructure.Extensions;
 
 public static class SnakeCaseConverter
 {
-    public static void ToSnakeCase(this ModelBuilder modelBuilder)
+    internal static void ToSnakeCase(this ModelBuilder modelBuilder)
     {
         foreach (var entity in modelBuilder.Model.GetEntityTypes())
         {

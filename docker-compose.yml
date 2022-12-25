@@ -1,0 +1,11 @@
+version: "3.8"
+services:
+  postgresql:
+    image: "postgres:13.0"
+    ports:
+      - "16101:5432"
+    environment:
+      POSTGRES_USER: "love-finder"
+      POSTGRES_PASSWORD: "love-finder"
+      POSTGRES_DB: "love-finder"
+
